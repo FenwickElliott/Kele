@@ -7,17 +7,24 @@ class Kele
       :email => email,
       :password => password
     }
-    res = JSON.parse RestClient.post 'https://www.bloc.io/api/v1/sessions', body
+    auth = JSON.parse RestClient.post 'https://www.bloc.io/api/v1/sessions', body
 
-    @auth_token = res['auth_token']
+    @auth_token = auth['auth_token']
+    @headers = {
+      :content_type => 'application/json',
+      :authorization => @auth_token
+    }
   end
 
   def get_me
-      headers = {
-        :content_type => 'application/json',
-        :authorization => @auth_token
-      }
-      user = JSON.parse RestClient.get 'https://www.bloc.io/api/v1/users/me', headers
-      puts user['name']
+      JSON.parse RestClient.get 'https://www.bloc.io/api/v1/users/me', @headers
+  end
+
+  def get_mentor_availability
+    m_id = get_me["current_enrollment"]['mentor_id']
+
+    response = JSON.parse RestClient.get "https://www.bloc.io/api/v1/mentors/#{m_id}/student_availability", @headers
+    puts response
+
   end
 end
