@@ -21,10 +21,15 @@ class Kele
   end
 
   def get_mentor_availability
-    m_id = get_me["current_enrollment"]['mentor_id']
-
-    response = JSON.parse RestClient.get "https://www.bloc.io/api/v1/mentors/#{m_id}/student_availability", @headers
+    response = JSON.parse RestClient.get "https://www.bloc.io/api/v1/mentors/#{get_me["current_enrollment"]['mentor_id']}/student_availability", @headers
     puts response
+  end
 
+  def get_roadmap(r_id)
+    JSON.parse RestClient.get "https://www.bloc.io/api/v1/roadmaps/#{r_id}", @headers
+  end
+
+  def get_checkpoint(c_id)
+    JSON.parse RestClient.get "https://www.bloc.io/api/v1/checkpoints/#{c_id}", @headers
   end
 end
