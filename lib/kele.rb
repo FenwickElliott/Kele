@@ -26,4 +26,8 @@ class Kele
     response = JSON.parse RestClient.get "https://www.bloc.io/api/v1/mentors/#{get_me["current_enrollment"]['mentor_id']}/student_availability", @headers
     puts response
   end
+
+  def get_messages
+    puts JSON.parse RestClient.get 'https://www.bloc.io/api/v1/message_threads', @headers
+  end
 end
