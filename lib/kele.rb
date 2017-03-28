@@ -1,10 +1,13 @@
 require 'rest_client'
 require 'json'
 require './lib/roadmap'
+require './lib/credentials'
 
 class Kele
   include Roadmap
-  def initialize(email, password)
+  include Credentials
+
+  def initialize(email=Credentials.email, password=Credentials.password)
     body = {
       :email => email,
       :password => password
