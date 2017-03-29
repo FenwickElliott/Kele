@@ -35,6 +35,18 @@ class Kele
 
   end
 
+  def create_submission(e_id, c_id, acl, c)
+    values = {
+      "assignment_commit_link":acl,
+      "checkpoint_id":e_id,
+      "comment":c,
+      "enrollment_id":c_id,
+    }
+
+    JSON.parse RestClient.post main_server('checkpoint_submissions'), values, @headers
+
+  end
+
   def get_me
       JSON.parse RestClient.get main_server('/users/me'), @headers
   end
