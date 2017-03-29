@@ -24,7 +24,6 @@ class Kele
 
     @auth_token = auth['auth_token']
     @headers = {
-      :content_type => 'application/json',
       :authorization => @auth_token
     }
 
@@ -36,14 +35,14 @@ class Kele
   end
 
   def create_submission(e_id, c_id, acl, c)
-    values = {
+    body = {
       "assignment_commit_link":acl,
-      "checkpoint_id":e_id,
+      "checkpoint_id":c_id,
       "comment":c,
-      "enrollment_id":c_id,
+      "enrollment_id":e_id,
     }
 
-    JSON.parse RestClient.post main_server('checkpoint_submissions'), values, @headers
+    JSON.parse RestClient.post main_server('checkpoint_submissions'), body, @headers
 
   end
 
